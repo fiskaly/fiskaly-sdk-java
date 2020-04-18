@@ -53,6 +53,7 @@ publishing {
             from components.java
             pom {
                 name = "fiskaly Java/JRE SDK"
+                description = "fiskaly Cloud-TSE SDK for Java/JRE"
                 version = platformVersion("jre")
                 url = "https://github.com/fiskaly/fiskaly-sdk-java"
                 scm {
@@ -66,12 +67,25 @@ publishing {
                         url = "https://github.com/fiskaly/fiskaly-sdk-java/blob/master/license.txt"
                     }
                 }
+                developers {
+                    developer {
+                        id = "benjamin.auinger.fiskaly"
+                        name = "Benjamin Auinger"
+                        email = "benjamin.auinger@fiskaly.com"
+                    }
+                    developer {
+                        id = "pgaubatz"
+                        name = "Patrick Gaubatz"
+                        email = "patrick.gaubatz@fiskaly.com"
+                    }
+                }
             }
         }
         mavenAndroid(MavenPublication) {
             from components.java
             pom {
                 name = "fiskaly Java/Android SDK"
+                description = "fiskaly Cloud-TSE SDK for Java/Android"
                 version = platformVersion("android")
                 url = "https://github.com/fiskaly/fiskaly-sdk-java"
                 scm {
@@ -83,6 +97,18 @@ publishing {
                     license {
                         name = "The MIT License"
                         url = "https://github.com/fiskaly/fiskaly-sdk-java/blob/master/license.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "benjamin.auinger.fiskaly"
+                        name = "Benjamin Auinger"
+                        email = "benjamin.auinger@fiskaly.com"
+                    }
+                    developer {
+                        id = "pgaubatz"
+                        name = "Patrick Gaubatz"
+                        email = "patrick.gaubatz@fiskaly.com"
                     }
                 }
             }
