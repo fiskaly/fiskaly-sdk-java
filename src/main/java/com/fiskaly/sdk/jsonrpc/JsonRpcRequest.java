@@ -3,7 +3,7 @@ package com.fiskaly.sdk.jsonrpc;
 import java.util.UUID;
 
 public class JsonRpcRequest {
-  public final String jsonrpc = "2.0";
+  public final String jsonrpc;
   public final String id;
   public final String method;
   public final Object params;
@@ -15,6 +15,7 @@ public class JsonRpcRequest {
 
     this.method = method;
     this.params = params;
+    this.jsonrpc = "2.0";
     this.id = UUID.randomUUID().toString();
   }
 

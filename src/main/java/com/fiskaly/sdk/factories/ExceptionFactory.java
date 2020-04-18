@@ -12,6 +12,8 @@ import net.iharder.Base64;
 public abstract class ExceptionFactory {
   private static final Gson GSON = GsonFactory.createGson();
 
+  private ExceptionFactory() {}
+
   public static <T> FiskalyHttpException buildHttpException(final JsonRpcResponse<T> response)
       throws IOException {
     final ErrorData errorData = GSON.fromJson(GSON.toJson(response.error.data), ErrorData.class);

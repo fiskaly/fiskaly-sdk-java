@@ -47,14 +47,13 @@ public class FiskalyHttpClientTest {
               }
             });
 
-    System.err.println(thrown);
     assertNotNull(thrown);
     assertNotNull(thrown.getMessage());
     assertNotNull(thrown.getCode());
     assertNotNull(thrown.getError());
     assertNotNull(thrown.getRequestId());
 
-    assertEquals(thrown.getStatus(), 400);
+    assertEquals(400, thrown.getStatus());
   }
 
   @Test()
@@ -76,6 +75,6 @@ public class FiskalyHttpClientTest {
     assertNotNull(thrown);
     assertNotNull(thrown.getMessage());
 
-    assertEquals(thrown.getCode(), -32602);
+    assertEquals(-32602, thrown.getCode());
   }
 }

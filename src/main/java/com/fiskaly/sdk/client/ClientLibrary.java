@@ -16,6 +16,8 @@ public abstract class ClientLibrary {
   private static final String PROP_LIB_PATH = "jna.library.path";
   private static final Gson GSON = GsonFactory.createGson();
 
+  private ClientLibrary() {}
+
   public static <T> JsonRpcResponse<T> invoke(
       final JsonRpcRequest request, final Class<?> resultClass) {
     final String requestString = GSON.toJson(request);
