@@ -2,6 +2,7 @@ plugins {
     id "java-library"
     id "maven-publish"
     id "signing"
+    id "pmd"
 
     // used for formatting all java code via: $ ./gradlew goJF
     id "com.github.sherter.google-java-format" version "0.8"
