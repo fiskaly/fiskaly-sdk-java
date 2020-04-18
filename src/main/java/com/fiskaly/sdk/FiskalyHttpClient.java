@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 public class FiskalyHttpClient {
-  private String context;
+  private transient String context;
 
   public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,

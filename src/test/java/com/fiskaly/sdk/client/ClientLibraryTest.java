@@ -6,6 +6,7 @@ import com.fiskaly.sdk.jsonrpc.JsonRpcError;
 import com.fiskaly.sdk.jsonrpc.JsonRpcRequest;
 import com.fiskaly.sdk.jsonrpc.JsonRpcResponse;
 import com.fiskaly.sdk.results.ResultVersion;
+import java.util.Map;
 import org.junit.Test;
 
 public class ClientLibraryTest {
@@ -46,7 +47,7 @@ public class ClientLibraryTest {
   @Test
   public void invokeInvalidMethod() {
     final JsonRpcRequest req = new JsonRpcRequest("some-invalid-method");
-    final JsonRpcResponse res = ClientLibrary.invoke(req);
+    final JsonRpcResponse<Map<?, ?>> res = ClientLibrary.invoke(req, Map.class);
     assertNotNull(res);
     assertNotNull(res.id);
     assertEquals(res.id, req.id);

@@ -9,7 +9,6 @@ import com.sun.jna.Native;
 import com.sun.jna.Platform;
 import com.sun.jna.Pointer;
 import java.lang.reflect.Type;
-import java.util.Map;
 
 public abstract class ClientLibrary {
   private static final String LIB_PREFIX = "com.fiskaly.client";
@@ -26,10 +25,6 @@ public abstract class ClientLibrary {
         TypeToken.getParameterized(JsonRpcResponse.class, resultClass).getType();
 
     return GSON.fromJson(invocationResponse, responseType);
-  }
-
-  public static JsonRpcResponse invoke(final JsonRpcRequest req) {
-    return invoke(req, Map.class);
   }
 
   public static String invoke(final String req) {

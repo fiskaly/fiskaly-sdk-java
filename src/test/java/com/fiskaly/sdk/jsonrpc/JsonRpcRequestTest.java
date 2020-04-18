@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import com.fiskaly.sdk.factories.GsonFactory;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.util.Map;
 import org.junit.Test;
 
@@ -30,7 +31,8 @@ public class JsonRpcRequestTest {
     assertEquals("2.0", r.jsonrpc);
     final String json = GSON.toJson(r);
     assertNotNull(json);
-    final Map map = GSON.fromJson(json, Map.class);
+    final Map<String, Object> map =
+        GSON.fromJson(json, new TypeToken<Map<String, Object>>() {}.getType());
     assertEquals("2.0", map.get("jsonrpc"));
     assertNotNull(map.get("id"));
     assertNotNull(map.get("method"));
