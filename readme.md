@@ -22,7 +22,7 @@ Add the following to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.300-jre'
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.301-jre'
 }
 ```
 
@@ -40,7 +40,7 @@ Then, add the following to your `app/build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.300-android'
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.301-android'
     implementation files('libs/com.fiskaly.client-android-all-v1.1.300.aar')
 }
 ```
