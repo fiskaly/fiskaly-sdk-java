@@ -1,6 +1,8 @@
 package com.fiskaly.sdk;
 
 public class FiskalyClientException extends FiskalyException {
+  private static final long serialVersionUID = 1L;
+
   private final int code;
   private final Object data;
 
