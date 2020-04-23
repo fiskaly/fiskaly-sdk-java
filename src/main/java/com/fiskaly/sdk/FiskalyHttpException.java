@@ -40,6 +40,8 @@ public class FiskalyHttpException extends FiskalyException {
         + this.status
         + "\", Error: \""
         + this.error
+        + "\", Message: \""
+        + super.getMessage()
         + "\", Code: \""
         + this.code
         + "\""
