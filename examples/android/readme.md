@@ -4,7 +4,7 @@ This project is a runnable sample for the fiskaly Java/Android SDK.
 
 ## Build
 
-First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for your android (e.g. `com.fiskaly.client-android-all-v1.1.100.aar`) and copy the Android Archive to `app/libs/`.
+First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for your android (e.g. `com.fiskaly.client-android-all-v1.1.400.aar`) and copy the Android Archive to `app/libs/`.
 
 Fech all dependencies:
 ```bash
