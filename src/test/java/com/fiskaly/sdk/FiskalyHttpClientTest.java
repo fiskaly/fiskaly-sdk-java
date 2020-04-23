@@ -30,7 +30,6 @@ public class FiskalyHttpClientTest {
     assertTrue(res.status != 0);
   }
 
-  @Ignore("TODO: re-enable this test with client version 1.1.400!")
   @Test()
   public void requestFail()
       throws IOException, URISyntaxException, FiskalyHttpTimeoutException, FiskalyClientException,
