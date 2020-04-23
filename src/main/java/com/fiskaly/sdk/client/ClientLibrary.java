@@ -87,7 +87,6 @@ public abstract class ClientLibrary {
   static {
     final String libName = getLibName();
     setLibSearchPath();
-    Native.setProtected(true);
     Native.register(ClientLibrary.class, libName);
   }
 }
