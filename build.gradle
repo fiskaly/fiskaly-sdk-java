@@ -6,6 +6,7 @@ plugins {
 
     // used for formatting all java code via: $ ./gradlew goJF
     id "com.github.sherter.google-java-format" version "0.8"
+    id "org.sonarqube" version "2.8"
 }
 
 group "com.fiskaly.sdk"
