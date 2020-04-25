@@ -9,7 +9,7 @@ plugins {
 }
 
 group "com.fiskaly.sdk"
-version "1.1.400"
+version "1.1.401"
 
 def platformVersion(String variant) {
     def parts = [ version.minus("-SNAPSHOT"), variant ]
