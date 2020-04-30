@@ -4,7 +4,7 @@ This project is a runnable sample for the fiskaly Java/JRE SDK.
 
 ## Build
 
-First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for your platform and copy the library (e.g. `com.fiskaly.client-linux-amd64-v1.1.400.so`) to `src/main/resources/`.
+First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for your platform and copy the library (e.g. `com.fiskaly.client-linux-amd64-v1.1.500.so`) to `src/main/resources/`.
 
 Fech all dependencies:
 ```bash
