@@ -1,0 +1,38 @@
+{
+  "replace": {
+    "client_version": "1.1.500",
+
+    "sdk_version": "1.1.500"
+  },
+
+  "files": [
+    {
+      "input": "build.gradle.template",
+      "output": "build.gradle"
+    },
+    {
+      "input": "readme.md.template",
+      "output": "readme.md"
+    },
+    {
+      "input": "examples/android/readme.md.template",
+      "output": "examples/android/readme.md"
+    },
+    {
+      "input": "examples/android/app/build.gradle.template",
+      "output": "examples/android/app/build.gradle"
+    },
+    {
+      "input": "examples/jre/build.gradle.template",
+      "output": "examples/jre/build.gradle"
+    },
+    {
+      "input": "examples/jre/readme.md.template",
+      "output": "examples/jre/readme.md"
+    },
+    {
+      "input": "src/main/java/com/fiskaly/sdk/client/ClientLibraryVersion.java.template",
+      "output": "src/main/java/com/fiskaly/sdk/client/ClientLibraryVersion.java"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+plugins {
+    id "java-library"
+    id "maven-publish"
+    id "signing"
+    id "pmd"
+
+    // used for formatting all java code via: $ ./gradlew goJF
+    id "com.github.sherter.google-java-format" version "0.8"
+    id "org.sonarqube" version "2.8"
+}
+
+group "com.fiskaly.sdk"
+version "{{.SDK_VERSION}}"
+
+def platformVersion(String variant) {
+    def parts = [ version.minus("-SNAPSHOT"), variant ]
+    if (version.endsWith("SNAPSHOT")) {
+        parts.add("SNAPSHOT")
+    }
+    return parts.join("-")
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_1_6
+    targetCompatibility = JavaVersion.VERSION_1_6
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "net.iharder:base64:2.3.9"
+    implementation "net.java.dev.jna:jna:5.5.0"
+    testCompile "junit:junit:4.13"
+}
+
+publishing {
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = project.findProperty("nexusUsername")
+                password = project.findProperty("nexusPassword")
+            }
+        }
+    }
+    publications {
+        mavenJre(MavenPublication) {
+            from components.java
+            pom {
+                name = "fiskaly Java/JRE SDK"
+                description = "fiskaly Cloud-TSE SDK for Java/JRE"
+                version = platformVersion("jre")
+                url = "https://github.com/fiskaly/fiskaly-sdk-java"
+                scm {
+                    connection = "scm:https://github.com/fiskaly/fiskaly-sdk-java.git"
+                    developerConnection = "scm:git:https://github.com/fiskaly/fiskaly-sdk-java.git"
+                    url = "https://github.com/fiskaly/fiskaly-sdk-java"
+                }
+                licenses {
+                    license {
+                        name = "The MIT License"
+                        url = "https://github.com/fiskaly/fiskaly-sdk-java/blob/master/license.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "benjamin.auinger.fiskaly"
+                        name = "Benjamin Auinger"
+                        email = "benjamin.auinger@fiskaly.com"
+                    }
+                    developer {
+                        id = "pgaubatz"
+                        name = "Patrick Gaubatz"
+                        email = "patrick.gaubatz@fiskaly.com"
+                    }
+                }
+            }
+        }
+        mavenAndroid(MavenPublication) {
+            from components.java
+            pom {
+                name = "fiskaly Java/Android SDK"
+                description = "fiskaly Cloud-TSE SDK for Java/Android"
+                version = platformVersion("android")
+                url = "https://github.com/fiskaly/fiskaly-sdk-java"
+                scm {
+                    connection = "scm:https://github.com/fiskaly/fiskaly-sdk-java.git"
+                    developerConnection = "scm:git:https://github.com/fiskaly/fiskaly-sdk-java.git"
+                    url = "https://github.com/fiskaly/fiskaly-sdk-java"
+                }
+                licenses {
+                    license {
+                        name = "The MIT License"
+                        url = "https://github.com/fiskaly/fiskaly-sdk-java/blob/master/license.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "benjamin.auinger.fiskaly"
+                        name = "Benjamin Auinger"
+                        email = "benjamin.auinger@fiskaly.com"
+                    }
+                    developer {
+                        id = "pgaubatz"
+                        name = "Patrick Gaubatz"
+                        email = "patrick.gaubatz@fiskaly.com"
+                    }
+                }
+            }
+            pom.withXml {
+                asNode().getAt("dependencies")
+                        .getAt("dependency")
+                        .find {
+                            it.getAt("artifactId").text() == "jna"
+                        }
+                        .appendNode("type", "aar")
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJre
+    sign publishing.publications.mavenAndroid
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption("html5", true)
+    }
+}
+
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
