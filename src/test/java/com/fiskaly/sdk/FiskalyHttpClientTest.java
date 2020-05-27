@@ -75,4 +75,28 @@ public class FiskalyHttpClientTest {
 
     assertEquals(-32602, thrown.getCode());
   }
+
+  @Test
+  public void ghIssue7()
+      throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
+          FiskalyHttpTimeoutException {
+    final FiskalyHttpClient client = createClient();
+
+    // assert that request does NOT throw com.google.gson.JsonSyntaxException:
+    final FiskalyHttpException thrown =
+        assertThrows(
+            FiskalyHttpException.class,
+            new ThrowingRunnable() {
+              @Override
+              public void run() throws Throwable {
+                final String body =
+                    "{\"state\":\"ACTIVE\",\"client_id\":\"44ad060c-9fed-11ea-a10e-ef72f9ea92f4\",\"schema\":{\"standard_v1\":{\"receipt\":{\"INVALID\":true}}}}";
+                client.request(
+                    "PUT",
+                    "/tss/b5683d54-9fec-11ea-b751-238e39c200c5/tx/bc7cb052-9fec-11ea-b697-fb0858867380",
+                    body.getBytes());
+              }
+            });
+    assertEquals(400, thrown.getStatus());
+  }
 }

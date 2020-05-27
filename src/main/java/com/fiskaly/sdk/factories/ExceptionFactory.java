@@ -17,7 +17,7 @@ public abstract class ExceptionFactory {
   public static <T> FiskalyHttpException buildHttpException(final JsonRpcResponse<T> response)
       throws IOException {
     final ErrorData errorData = GSON.fromJson(GSON.toJson(response.error.data), ErrorData.class);
-    final String requestId = (String) errorData.response.headers.get("X-Request-Id").get(0);
+    final String requestId = (String) errorData.response.headers.get("x-request-id").get(0);
     final String decodedBody = new String(Base64.decode(errorData.response.body), "UTF-8");
     final FiskalyApiError errorBody = GSON.fromJson(decodedBody, FiskalyApiError.class);
 
