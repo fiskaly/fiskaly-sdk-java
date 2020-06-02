@@ -4,17 +4,32 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import com.fiskaly.sdk.params.ParamConfig;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
 public class FiskalyHttpClientTest {
-  private static final String API_KEY = System.getenv("FISKALY_API_KEY");
-  private static final String API_SECRET = System.getenv("FISKALY_API_SECRET");
+  private static final String API_KEY = System.getenv("API_KEY");
+  private static final String API_SECRET = System.getenv("API_SECRET");
 
   public FiskalyHttpClient createClient()
       throws IOException, URISyntaxException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     return new FiskalyHttpClient(API_KEY, API_SECRET, "https://kassensichv.io/api/v1");
+  }
+
+  @Test
+  public void configTest() throws URISyntaxException, FiskalyHttpTimeoutException, FiskalyHttpException, FiskalyClientException, IOException {
+      FiskalyHttpClient client = this.createClient();
+
+      assertNotNull(client);
+      final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
+      assertNotNull(config);
+      assertEquals(3, config.debug_level);
+      assertEquals("~/tmp/", config.debug_file);
+      assertEquals(1000, config.client_timeout);
+      assertEquals(1000, config.smaers_timeout);
   }
 
   @Test

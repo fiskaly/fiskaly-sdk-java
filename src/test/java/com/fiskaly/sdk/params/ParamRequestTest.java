@@ -33,7 +33,7 @@ public class ParamRequestTest {
   @Test
   public void missingMethod() {
     try {
-      new ParamRequest("foo", new ParamRequest.Request(null, null, null, null, null));
+      new ParamRequest("foo", new ParamRequest.Request(null, null, null, null, null, null));
       fail("Expected an IllegalArgumentException to be thrown");
     } catch (IllegalArgumentException e) {
       assertEquals("Missing or empty \"method\" parameter", e.getMessage());
@@ -43,7 +43,7 @@ public class ParamRequestTest {
   @Test
   public void missingPath() {
     try {
-      new ParamRequest("foo", new ParamRequest.Request("GET", null, null, null, null));
+      new ParamRequest("foo", new ParamRequest.Request("GET", null, null, null, null, null));
       fail("Expected an IllegalArgumentException to be thrown");
     } catch (IllegalArgumentException e) {
       assertEquals("Missing \"path\" parameter", e.getMessage());
@@ -54,7 +54,7 @@ public class ParamRequestTest {
   public void bodyEncoding() {
     final byte[] body = "baz".getBytes();
     final ParamRequest r =
-        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", body, null, null));
+        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", body, null, null, null));
     assertNotNull(r);
     assertNotNull(r.request.body);
     assertEquals("YmF6", r.request.body); // base64-encoded "bar"
@@ -63,7 +63,7 @@ public class ParamRequestTest {
   @Test
   public void basicRequest() {
     final ParamRequest r =
-        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", null, null, null));
+        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", null, null, null, null));
     assertNotNull(r);
     assertNotNull(r.context);
     assertNotNull(r.request.method);
@@ -73,7 +73,7 @@ public class ParamRequestTest {
   @Test
   public void basicRequestJson() {
     final ParamRequest r =
-        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", null, null, null));
+        new ParamRequest("foo", new ParamRequest.Request("GET", "bar", null, null, null, null));
     final String json = GSON.toJson(r);
     assertEquals("{\"context\":\"foo\",\"request\":{\"method\":\"GET\",\"path\":\"bar\"}}", json);
   }
@@ -84,7 +84,7 @@ public class ParamRequestTest {
         new ParamRequest(
             "foo",
             new ParamRequest.Request(
-                "GET", "bar", "baz".getBytes(), Collections.<String, Object>emptyMap(), null));
+                "GET", "bar", "baz".getBytes(), Collections.<String, Object>emptyMap(), null, null));
     assertNotNull(r);
     assertNull(r.request.query);
   }
@@ -99,7 +99,8 @@ public class ParamRequestTest {
                 "bar",
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
-                Collections.<String, String>emptyMap()));
+                Collections.<String, String>emptyMap(),
+                    null));
     assertNotNull(r);
     assertNull(r.request.headers);
   }
@@ -114,7 +115,8 @@ public class ParamRequestTest {
                 "bar",
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
-                Collections.singletonMap("baz", "qux")));
+                Collections.singletonMap("baz", "qux"),
+                    null));
     assertNotNull(r);
     assertNotNull(r.context);
     assertNotNull(r.request.method);
@@ -133,7 +135,8 @@ public class ParamRequestTest {
                 "bar",
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
-                Collections.singletonMap("baz", "qux")));
+                Collections.singletonMap("baz", "qux"),
+                    null));
     final String json = GSON.toJson(r);
     assertEquals(
         "{\"context\":\"foo\",\"request\":{\"method\":\"GET\",\"path\":\"bar\",\"body\":\"YmF6\",\"query\":{\"foo\":\"bar\"},\"headers\":{\"baz\":\"qux\"}}}",
