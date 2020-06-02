@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
 public class FiskalyHttpClientTest {
-  private static final String API_KEY = System.getenv("API_KEY");
-  private static final String API_SECRET = System.getenv("API_SECRET");
+  private static final String API_KEY = System.getenv("FISKALY_API_KEY");
+  private static final String API_SECRET = System.getenv("FISKALY_API_SECRET");
 
   public FiskalyHttpClient createClient()
       throws IOException, URISyntaxException, FiskalyHttpTimeoutException, FiskalyClientException,
