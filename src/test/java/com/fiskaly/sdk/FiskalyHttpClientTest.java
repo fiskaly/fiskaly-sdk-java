@@ -20,7 +20,18 @@ public class FiskalyHttpClientTest {
   }
 
   @Test
-  public void configTest() throws URISyntaxException, FiskalyHttpTimeoutException, FiskalyHttpException, FiskalyClientException, IOException {
+  public void echoTest() throws FiskalyException, URISyntaxException, IOException {
+      FiskalyHttpClient client = this.createClient();
+
+      assertNotNull(client);
+      String utf8test = "/this/is/my/utf8/string/äöü+#*'_-?ß!§$%&/()=<>|";
+      final Object echo = client.echo(utf8test);
+      assertNotNull(echo);
+      assertEquals(utf8test, echo);
+  }
+
+  @Test
+  public void configTest() throws FiskalyException, URISyntaxException, IOException {
       FiskalyHttpClient client = this.createClient();
 
       assertNotNull(client);

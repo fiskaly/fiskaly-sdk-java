@@ -35,6 +35,15 @@ public class FiskalyHttpClient {
     this(apiKey, apiSecret, new URI(baseUrl));
   }
 
+  public Object echo (Object object) throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+
+    final JsonRpcRequest request = new JsonRpcRequest("echo", object);
+    final JsonRpcResponse<Object> response = doInvoke(request, Object.class);
+
+    return response.result;
+
+  }
+
   public ParamConfig.Config config(
           final int debug_level,
           final String debug_file,
