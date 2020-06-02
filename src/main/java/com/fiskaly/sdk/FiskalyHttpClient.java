@@ -11,6 +11,8 @@ import com.fiskaly.sdk.params.ParamRequest;
 import com.fiskaly.sdk.results.ResultConfig;
 import com.fiskaly.sdk.results.ResultCreateContext;
 import com.fiskaly.sdk.results.ResultRequest;
+import com.fiskaly.sdk.results.ResultVersion;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,7 +37,18 @@ public class FiskalyHttpClient {
     this(apiKey, apiSecret, new URI(baseUrl));
   }
 
-  public Object echo (Object object) throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+  public ResultVersion version()
+          throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+
+    final JsonRpcRequest request = new JsonRpcRequest("version", null);
+    final JsonRpcResponse<ResultVersion> response = doInvoke(request, ResultVersion.class);
+
+    return response.result;
+
+  }
+
+  public Object echo (Object object)
+          throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
 
     final JsonRpcRequest request = new JsonRpcRequest("echo", object);
     final JsonRpcResponse<Object> response = doInvoke(request, Object.class);
