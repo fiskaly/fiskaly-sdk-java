@@ -27,7 +27,7 @@ public class ParamRequest {
     public final String body;
     public final Map<String, ?> query;
     public final Map<String, String> headers;
-    public final String destination_file;
+    public final String destinationFile;
 
     public Request(
         final String method,
@@ -35,7 +35,7 @@ public class ParamRequest {
         final byte[] body,
         final Map<String, ?> query,
         final Map<String, String> headers,
-        final String destination_file) {
+        final String destinationFile) {
       if (method == null || method.isEmpty()) {
         throw new IllegalArgumentException("Missing or empty \"method\" parameter");
       }
@@ -50,7 +50,7 @@ public class ParamRequest {
       this.query = (query != null && !query.isEmpty()) ? Collections.unmodifiableMap(query) : null;
       this.headers =
           (headers != null && !headers.isEmpty()) ? Collections.unmodifiableMap(headers) : null;
-      this.destination_file = destination_file;
+      this.destinationFile = destinationFile;
     }
   }
 }

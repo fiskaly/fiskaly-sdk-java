@@ -21,17 +21,17 @@ public class ParamConfig {
 
   public static class Config {
 
-    public final int debug_level;
-    public final String debug_file;
-    public final int client_timeout;
-    public final int smaers_timeout;
+    public final int debugLevel;
+    public final String debugFile;
+    public final int clientTimeout;
+    public final int smaersTimeout;
 
-    public Config(int debug_level, String debug_file, int client_timeout, int smaers_timeout) {
+    public Config(int debugLevel, String debugFile, int clientTimeout, int smaersTimeout) {
 
-      this.debug_level = debug_level;
-      this.debug_file = debug_file;
-      this.client_timeout = client_timeout;
-      this.smaers_timeout = smaers_timeout;
+      this.debugLevel = debugLevel;
+      this.debugFile = debugFile;
+      this.clientTimeout = clientTimeout;
+      this.smaersTimeout = smaersTimeout;
     }
   }
 }

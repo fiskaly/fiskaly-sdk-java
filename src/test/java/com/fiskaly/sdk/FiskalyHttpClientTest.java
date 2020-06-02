@@ -46,10 +46,10 @@ public class FiskalyHttpClientTest {
     assertNotNull(client);
     final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
     assertNotNull(config);
-    assertEquals(3, config.debug_level);
-    assertEquals("~/tmp/", config.debug_file);
-    assertEquals(1000, config.client_timeout);
-    assertEquals(1000, config.smaers_timeout);
+    assertEquals(3, config.debugLevel);
+    assertEquals("~/tmp/", config.debugFile);
+    assertEquals(1000, config.clientTimeout);
+    assertEquals(1000, config.smaersTimeout);
   }
 
   @Test
