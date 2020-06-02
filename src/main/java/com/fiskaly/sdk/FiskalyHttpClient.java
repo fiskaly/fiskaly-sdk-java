@@ -12,7 +12,6 @@ import com.fiskaly.sdk.results.ResultConfig;
 import com.fiskaly.sdk.results.ResultCreateContext;
 import com.fiskaly.sdk.results.ResultRequest;
 import com.fiskaly.sdk.results.ResultVersion;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,34 +37,36 @@ public class FiskalyHttpClient {
   }
 
   public ResultVersion version()
-          throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+      throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
+          IOException {
 
     final JsonRpcRequest request = new JsonRpcRequest("version", null);
     final JsonRpcResponse<ResultVersion> response = doInvoke(request, ResultVersion.class);
 
     return response.result;
-
   }
 
-  public Object echo (Object object)
-          throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+  public Object echo(Object object)
+      throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
+          IOException {
 
     final JsonRpcRequest request = new JsonRpcRequest("echo", object);
     final JsonRpcResponse<Object> response = doInvoke(request, Object.class);
 
     return response.result;
-
   }
 
   public ParamConfig.Config config(
-          final int debug_level,
-          final String debug_file,
-          final int client_timeout,
-          final int smaers_timeout
-  ) throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException, IOException {
+      final int debug_level,
+      final String debug_file,
+      final int client_timeout,
+      final int smaers_timeout)
+      throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
+          IOException {
     final ParamConfig params =
-            new ParamConfig(
-                    this.context, new ParamConfig.Config(debug_level, debug_file, client_timeout, smaers_timeout));
+        new ParamConfig(
+            this.context,
+            new ParamConfig.Config(debug_level, debug_file, client_timeout, smaers_timeout));
 
     final JsonRpcRequest request = new JsonRpcRequest("config", params);
     final JsonRpcResponse<ResultConfig> response = doInvoke(request, ResultConfig.class);
@@ -73,7 +74,6 @@ public class FiskalyHttpClient {
     this.context = response.result.context;
 
     return response.result.config;
-
   }
 
   public FiskalyHttpResponse request(
@@ -87,7 +87,8 @@ public class FiskalyHttpClient {
           FiskalyHttpException {
     final ParamRequest params =
         new ParamRequest(
-            this.context, new ParamRequest.Request(method, path, body, query, headers, destination_file));
+            this.context,
+            new ParamRequest.Request(method, path, body, query, headers, destination_file));
 
     final JsonRpcRequest request = new JsonRpcRequest("request", params);
     final JsonRpcResponse<ResultRequest> response = doInvoke(request, ResultRequest.class);
@@ -98,23 +99,23 @@ public class FiskalyHttpClient {
   }
 
   public FiskalyHttpResponse request(
-          final String method,
-          final String path,
-          final byte[] body,
-          final Map<String, ?> query,
-          final Map<String, String> headers)
-          throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
+      final String method,
+      final String path,
+      final byte[] body,
+      final Map<String, ?> query,
+      final Map<String, String> headers)
+      throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     return this.request(method, path, body, query, headers, null);
   }
 
   public FiskalyHttpResponse request(
-          final String method,
-          final String path,
-          final byte[] body,
-          final Map<String, ?> query,
-          final String destination_file)
-          throws IOException, FiskalyHttpException, FiskalyClientException,
+      final String method,
+      final String path,
+      final byte[] body,
+      final Map<String, ?> query,
+      final String destination_file)
+      throws IOException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     return this.request(method, path, body, query, null, destination_file);
   }
@@ -127,11 +128,8 @@ public class FiskalyHttpClient {
   }
 
   public FiskalyHttpResponse request(
-          final String method,
-          final String path,
-          final byte[] body,
-          final String destination_file)
-          throws IOException, FiskalyHttpException, FiskalyClientException,
+      final String method, final String path, final byte[] body, final String destination_file)
+      throws IOException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     return this.request(method, path, body, null, null, destination_file);
   }
@@ -142,8 +140,9 @@ public class FiskalyHttpClient {
     return this.request(method, path, body, null, null, null);
   }
 
-  public FiskalyHttpResponse request(final String method, final String path, final String destination_file)
-          throws IOException, FiskalyHttpException, FiskalyClientException,
+  public FiskalyHttpResponse request(
+      final String method, final String path, final String destination_file)
+      throws IOException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     return this.request(method, path, null, null, null, destination_file);
   }

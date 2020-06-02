@@ -84,7 +84,12 @@ public class ParamRequestTest {
         new ParamRequest(
             "foo",
             new ParamRequest.Request(
-                "GET", "bar", "baz".getBytes(), Collections.<String, Object>emptyMap(), null, null));
+                "GET",
+                "bar",
+                "baz".getBytes(),
+                Collections.<String, Object>emptyMap(),
+                null,
+                null));
     assertNotNull(r);
     assertNull(r.request.query);
   }
@@ -100,7 +105,7 @@ public class ParamRequestTest {
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
                 Collections.<String, String>emptyMap(),
-                    null));
+                null));
     assertNotNull(r);
     assertNull(r.request.headers);
   }
@@ -116,7 +121,7 @@ public class ParamRequestTest {
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
                 Collections.singletonMap("baz", "qux"),
-                    null));
+                null));
     assertNotNull(r);
     assertNotNull(r.context);
     assertNotNull(r.request.method);
@@ -136,7 +141,7 @@ public class ParamRequestTest {
                 "baz".getBytes(),
                 Collections.singletonMap("foo", "bar"),
                 Collections.singletonMap("baz", "qux"),
-                    null));
+                null));
     final String json = GSON.toJson(r);
     assertEquals(
         "{\"context\":\"foo\",\"request\":{\"method\":\"GET\",\"path\":\"bar\",\"body\":\"YmF6\",\"query\":{\"foo\":\"bar\"},\"headers\":{\"baz\":\"qux\"}}}",

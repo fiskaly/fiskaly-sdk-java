@@ -2,11 +2,10 @@ package com.fiskaly.sdk;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import com.fiskaly.sdk.params.ParamConfig;
 import com.fiskaly.sdk.results.ResultVersion;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
@@ -22,35 +21,35 @@ public class FiskalyHttpClientTest {
 
   @Test
   public void versionTest() throws FiskalyException, URISyntaxException, IOException {
-      FiskalyHttpClient client = this.createClient();
+    FiskalyHttpClient client = this.createClient();
 
-      assertNotNull(client);
-      final ResultVersion version = client.version();
-      assertNotNull(version);
+    assertNotNull(client);
+    final ResultVersion version = client.version();
+    assertNotNull(version);
   }
 
   @Test
   public void echoTest() throws FiskalyException, URISyntaxException, IOException {
-      FiskalyHttpClient client = this.createClient();
+    FiskalyHttpClient client = this.createClient();
 
-      assertNotNull(client);
-      String utf8test = "/this/is/my/utf8/string/äöü+#*'_-?ß!§$%&/()=<>|";
-      final Object echo = client.echo(utf8test);
-      assertNotNull(echo);
-      assertEquals(utf8test, echo);
+    assertNotNull(client);
+    String utf8test = "/this/is/my/utf8/string/äöü+#*'_-?ß!§$%&/()=<>|";
+    final Object echo = client.echo(utf8test);
+    assertNotNull(echo);
+    assertEquals(utf8test, echo);
   }
 
   @Test
   public void configTest() throws FiskalyException, URISyntaxException, IOException {
-      FiskalyHttpClient client = this.createClient();
+    FiskalyHttpClient client = this.createClient();
 
-      assertNotNull(client);
-      final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
-      assertNotNull(config);
-      assertEquals(3, config.debug_level);
-      assertEquals("~/tmp/", config.debug_file);
-      assertEquals(1000, config.client_timeout);
-      assertEquals(1000, config.smaers_timeout);
+    assertNotNull(client);
+    final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
+    assertNotNull(config);
+    assertEquals(3, config.debug_level);
+    assertEquals("~/tmp/", config.debug_file);
+    assertEquals(1000, config.client_timeout);
+    assertEquals(1000, config.smaers_timeout);
   }
 
   @Test
