@@ -2,6 +2,8 @@ package com.fiskaly.sdk;
 
 import static org.junit.Assert.*;
 
+import com.fiskaly.sdk.params.ParamConfig;
+import com.fiskaly.sdk.results.ResultVersion;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import org.junit.Test;
@@ -15,6 +17,39 @@ public class FiskalyHttpClientTest {
       throws IOException, URISyntaxException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     return new FiskalyHttpClient(API_KEY, API_SECRET, "https://kassensichv.io/api/v1");
+  }
+
+  @Test
+  public void versionTest() throws FiskalyException, URISyntaxException, IOException {
+    FiskalyHttpClient client = this.createClient();
+
+    assertNotNull(client);
+    final ResultVersion version = client.version();
+    assertNotNull(version);
+  }
+
+  @Test
+  public void echoTest() throws FiskalyException, URISyntaxException, IOException {
+    FiskalyHttpClient client = this.createClient();
+
+    assertNotNull(client);
+    String utf8test = "/this/is/my/utf8/string/äöü+#*'_-?ß!§$%&/()=<>|";
+    final Object echo = client.echo(utf8test);
+    assertNotNull(echo);
+    assertEquals(utf8test, echo);
+  }
+
+  @Test
+  public void configTest() throws FiskalyException, URISyntaxException, IOException {
+    FiskalyHttpClient client = this.createClient();
+
+    assertNotNull(client);
+    final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
+    assertNotNull(config);
+    assertEquals(3, config.debugLevel);
+    assertEquals("~/tmp/", config.debugFile);
+    assertEquals(1000, config.clientTimeout);
+    assertEquals(1000, config.smaersTimeout);
   }
 
   @Test

@@ -13,7 +13,8 @@ public class ClientLibraryTest {
   @Test
   public void invokeEcho() {
     final String version = "1.2.3";
-    final ResultVersion params = new ResultVersion(new ResultVersion.Client(version));
+    final ResultVersion params =
+        new ResultVersion(new ResultVersion.Client(version), new ResultVersion.SMAERS(version));
     final JsonRpcRequest req = new JsonRpcRequest("echo", params);
     final JsonRpcResponse<ResultVersion> res = ClientLibrary.invoke(req, ResultVersion.class);
     assertNotNull(res);
