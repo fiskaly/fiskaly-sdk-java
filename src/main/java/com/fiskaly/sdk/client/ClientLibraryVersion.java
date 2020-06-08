@@ -1,7 +1,7 @@
 package com.fiskaly.sdk.client;
 
 abstract class ClientLibraryVersion {
-  public static final String VERSION = "v1.1.601";
+  public static final String VERSION = "v1.1.600";
 
   private ClientLibraryVersion() {}
 }
