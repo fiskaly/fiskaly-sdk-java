@@ -3,6 +3,7 @@ package com.fiskaly.sdk;
 import static org.junit.Assert.*;
 
 import com.fiskaly.sdk.params.ParamConfig;
+import com.fiskaly.sdk.results.ResultSelfTest;
 import com.fiskaly.sdk.results.ResultVersion;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -29,6 +30,15 @@ public class FiskalyHttpClientTest {
   }
 
   @Test
+  public void selfTestTest() throws FiskalyException, URISyntaxException, IOException {
+    FiskalyHttpClient client = this.createClient();
+
+    assertNotNull(client);
+    final ResultSelfTest selfTest = client.selfTest();
+    assertNotNull(selfTest);
+  }
+
+  @Test
   public void echoTest() throws FiskalyException, URISyntaxException, IOException {
     FiskalyHttpClient client = this.createClient();
 
@@ -44,12 +54,13 @@ public class FiskalyHttpClientTest {
     FiskalyHttpClient client = this.createClient();
 
     assertNotNull(client);
-    final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000);
+    final ParamConfig.Config config = client.config(3, "~/tmp/", 1000, 1000, "");
     assertNotNull(config);
     assertEquals(3, config.debugLevel);
     assertEquals("~/tmp/", config.debugFile);
     assertEquals(1000, config.clientTimeout);
     assertEquals(1000, config.smaersTimeout);
+    assertEquals("", config.httpProxy);
   }
 
   @Test

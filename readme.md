@@ -34,14 +34,14 @@ Additionaly to the SDK, you'll also need the fiskaly client. Follow these steps 
 
 #### Android
 
-First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for android (e.g. `com.fiskaly.client-android-all-v1.1.601.aar`) and copy the Android Archive to `app/libs/`
+First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for android (e.g. `com.fiskaly.client-android-all-v1.2.000.aar`) and copy the Android Archive to `app/libs/`
 
 Then, add the following to your `app/build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.601-android'
-    implementation files('libs/com.fiskaly.client-android-all-v1.1.601.aar')
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.000-android'
+    implementation files('libs/com.fiskaly.client-android-all-v1.2.000.aar')
 }
 ```
 
@@ -63,6 +63,13 @@ public class Main {
         System.out.println(response);
     }
 }
+```
+
+## Proguard Configuration
+
+```
+-keep class com.sun.jna.* { *; }
+-keepclassmembers class * extends com.sun.jna.* { public *; }
 ```
 
 ### Client Configuration
