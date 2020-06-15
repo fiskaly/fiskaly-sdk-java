@@ -22,7 +22,7 @@ Add the following to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.601-jre'
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.1.602-jre'
 }
 ```
 
