@@ -8,10 +8,8 @@ import com.fiskaly.sdk.jsonrpc.JsonRpcResponse;
 import com.fiskaly.sdk.params.ParamConfig;
 import com.fiskaly.sdk.params.ParamCreateContext;
 import com.fiskaly.sdk.params.ParamRequest;
-import com.fiskaly.sdk.results.ResultConfig;
-import com.fiskaly.sdk.results.ResultCreateContext;
-import com.fiskaly.sdk.results.ResultRequest;
-import com.fiskaly.sdk.results.ResultVersion;
+import com.fiskaly.sdk.params.ParamSelfTest;
+import com.fiskaly.sdk.results.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,6 +44,16 @@ public class FiskalyHttpClient {
     return response.result;
   }
 
+  public ResultSelfTest selfTest()
+      throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
+          IOException {
+    final ParamSelfTest params = new ParamSelfTest(this.context);
+    final JsonRpcRequest request = new JsonRpcRequest("self-test", params);
+    final JsonRpcResponse<ResultSelfTest> response = doInvoke(request, ResultSelfTest.class);
+
+    return response.result;
+  }
+
   public Object echo(Object object)
       throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
           IOException {
@@ -60,13 +68,14 @@ public class FiskalyHttpClient {
       final int debugLevel,
       final String debugFile,
       final int clientTimeout,
-      final int smaersTimeout)
+      final int smaersTimeout,
+      final String httpProxy)
       throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
           IOException {
     final ParamConfig params =
         new ParamConfig(
             this.context,
-            new ParamConfig.Config(debugLevel, debugFile, clientTimeout, smaersTimeout));
+            new ParamConfig.Config(debugLevel, debugFile, clientTimeout, smaersTimeout, httpProxy));
 
     final JsonRpcRequest request = new JsonRpcRequest("config", params);
     final JsonRpcResponse<ResultConfig> response = doInvoke(request, ResultConfig.class);
