@@ -10,7 +10,6 @@ import com.fiskaly.sdk.params.ParamCreateContext;
 import com.fiskaly.sdk.params.ParamRequest;
 import com.fiskaly.sdk.params.ParamSelfTest;
 import com.fiskaly.sdk.results.*;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,12 +45,9 @@ public class FiskalyHttpClient {
   }
 
   public ResultSelfTest selfTest()
-          throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
+      throws FiskalyHttpException, FiskalyHttpTimeoutException, FiskalyClientException,
           IOException {
-    final ParamSelfTest params =
-            new ParamSelfTest(
-                    this.context
-            );
+    final ParamSelfTest params = new ParamSelfTest(this.context);
     final JsonRpcRequest request = new JsonRpcRequest("self-test", params);
     final JsonRpcResponse<ResultSelfTest> response = doInvoke(request, ResultSelfTest.class);
 

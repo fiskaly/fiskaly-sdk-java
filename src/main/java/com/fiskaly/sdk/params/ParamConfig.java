@@ -27,7 +27,8 @@ public class ParamConfig {
     public final int smaersTimeout;
     public final String httpProxy;
 
-    public Config(int debugLevel, String debugFile, int clientTimeout, int smaersTimeout, String httpProxy) {
+    public Config(
+        int debugLevel, String debugFile, int clientTimeout, int smaersTimeout, String httpProxy) {
 
       this.debugLevel = debugLevel;
       this.debugFile = debugFile;
