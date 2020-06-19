@@ -54,7 +54,7 @@ public abstract class ClientLibrary {
       extension = ".dll";
     } else if (Platform.isMac()) {
       os = "darwin";
-      extension = ".dylib";
+      extension = "";
     } else {
       throw new IllegalStateException("OS type not supported: " + Platform.getOSType());
     }
