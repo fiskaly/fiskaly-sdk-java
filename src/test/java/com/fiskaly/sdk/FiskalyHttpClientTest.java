@@ -7,6 +7,9 @@ import com.fiskaly.sdk.results.ResultSelfTest;
 import com.fiskaly.sdk.results.ResultVersion;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
@@ -97,7 +100,7 @@ public class FiskalyHttpClientTest {
     assertNotNull(thrown.getError());
     assertNotNull(thrown.getRequestId());
 
-    assertEquals(400, thrown.getStatus());
+    assertEquals(404, thrown.getStatus());
   }
 
   @Test()
@@ -144,5 +147,21 @@ public class FiskalyHttpClientTest {
               }
             });
     assertEquals(400, thrown.getStatus());
+  }
+
+  @Test
+  public void queryArray()
+          throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
+          FiskalyHttpTimeoutException {
+    final FiskalyHttpClient client = this.createClient();
+
+    Map<String, String[]> query
+            = new HashMap<String, String[]>() {{ put("states", new String[]{"INITIALIZED", "DISABLED"}); }};
+    final FiskalyHttpResponse res = client.request("GET", "/tss", null, query);
+
+    assertNotNull(res);
+    assertNotNull(res.body);
+    assertNotNull(res.headers);
+    assertTrue(res.status != 0);
   }
 }
