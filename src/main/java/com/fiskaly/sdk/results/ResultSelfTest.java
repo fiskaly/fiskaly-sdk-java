@@ -1,11 +1,13 @@
 package com.fiskaly.sdk.results;
 
+import java.util.Map;
+
 public class ResultSelfTest {
   public final String proxy;
-  public final String backend;
+  public final Map<String, String> backend;
   public final String smaers;
 
-  public ResultSelfTest(final String proxy, final String backend, final String smaers) {
+  public ResultSelfTest(final String proxy, Map<String, String> backend, final String smaers) {
     this.proxy = proxy;
     this.backend = backend;
     this.smaers = smaers;

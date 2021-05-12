@@ -18,30 +18,38 @@ import java.util.Map;
 public class FiskalyHttpClient {
   private transient String context;
 
-  public FiskalyHttpClient(final String apiKey,
-                           final String apiSecret,
-                           final URI baseUrl,
-                           final String email,
-                           final String password,
-                           final String organizationId,
-                           final String environment)
+  public FiskalyHttpClient(
+      final String apiKey,
+      final String apiSecret,
+      final URI baseUrl,
+      final String email,
+      final String password,
+      final String organizationId,
+      final String environment)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
-    final ParamCreateContext params = new ParamCreateContext(apiKey, apiSecret, baseUrl, email, password, organizationId, environment);
+    final ParamCreateContext params =
+        new ParamCreateContext(
+            apiKey, apiSecret, baseUrl, email, password, organizationId, environment);
     final JsonRpcRequest request = new JsonRpcRequest("create-context", params);
     final JsonRpcResponse<ResultCreateContext> response =
         doInvoke(request, ResultCreateContext.class);
     this.context = response.result.context;
   }
 
-  public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl, final String email, final String password)
-          throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
+  public FiskalyHttpClient(
+      final String apiKey,
+      final String apiSecret,
+      final URI baseUrl,
+      final String email,
+      final String password)
+      throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     this(apiKey, apiSecret, baseUrl, email, password, "", "");
   }
 
   public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl)
-          throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
+      throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     this(apiKey, apiSecret, baseUrl, "", "", "", "");
   }

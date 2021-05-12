@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.100-jre'
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-jre'
 }
 
 application {
