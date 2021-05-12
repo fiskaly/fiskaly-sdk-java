@@ -11,13 +11,14 @@ public class ParamCreateContext {
   public final String organizationId;
   public final String environment;
 
-  public ParamCreateContext(final String apiKey,
-                            final String apiSecret,
-                            final URI baseUrl,
-                            final String email,
-                            final String password,
-                            final String organizationId,
-                            final String environment) {
+  public ParamCreateContext(
+      final String apiKey,
+      final String apiSecret,
+      final URI baseUrl,
+      final String email,
+      final String password,
+      final String organizationId,
+      final String environment) {
     if (email == null || email.isEmpty()) {
       if (apiKey == null || apiKey.isEmpty()) {
         throw new IllegalArgumentException("Missing or empty \"apiKey\" parameter");
@@ -29,7 +30,8 @@ public class ParamCreateContext {
       }
       this.apiSecret = apiSecret;
     } else if (password == null || password.isEmpty()) {
-      throw new IllegalArgumentException("\"password\" must be provided in combination with \"email\"");
+      throw new IllegalArgumentException(
+          "\"password\" must be provided in combination with \"email\"");
     } else {
       this.apiKey = apiKey == null ? "" : apiKey;
       this.apiSecret = apiSecret == null ? "" : apiSecret;

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
@@ -151,12 +150,16 @@ public class FiskalyHttpClientTest {
 
   @Test
   public void queryArray()
-          throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
+      throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     final FiskalyHttpClient client = this.createClient();
 
-    Map<String, String[]> query
-            = new HashMap<String, String[]>() {{ put("states", new String[]{"INITIALIZED", "DISABLED"}); }};
+    Map<String, String[]> query =
+        new HashMap<String, String[]>() {
+          {
+            put("states", new String[] {"INITIALIZED", "DISABLED"});
+          }
+        };
     final FiskalyHttpResponse res = client.request("GET", "/tss", null, query);
 
     assertNotNull(res);

@@ -22,7 +22,7 @@ Add the following to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.100-jre'
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-jre'
 }
 ```
 
@@ -34,14 +34,14 @@ Additionaly to the SDK, you'll also need the fiskaly client. Follow these steps 
 
 #### Android
 
-First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for android (e.g. `com.fiskaly.client-android-all-v1.2.100.aar`) and copy the Android Archive to `app/libs/`
+First of all, download the [fiskaly Client](https://developer.fiskaly.com/downloads) for android (e.g. `com.fiskaly.client-android-all-v1.2.200.aar`) and copy the Android Archive to `app/libs/`
 
 Then, add the following to your `app/build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.100-android'
-    implementation files('libs/com.fiskaly.client-android-all-v1.2.100.aar')
+    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-android'
+    implementation files('libs/com.fiskaly.client-android-all-v1.2.200.aar')
 }
 ```
 
