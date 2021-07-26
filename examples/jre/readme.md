@@ -14,6 +14,15 @@ $ ./gradlew build
 
 ## Run example
 
+First, set environment variables `FISKALY_API_KEY` and `FISKALY_API_SECRET` to your API key and secret:
+
+```bash
+export FISKALY_API_KEY=yourAPIkey
+ export FISKALY_API_SECRET=yourAPIsecret
+ ```
+ 
+ Next, run the sample:
+
 ```bash
 $ ./gradlew run
 ```
