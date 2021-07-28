@@ -8,6 +8,7 @@ import com.fiskaly.sdk.results.FiskalyApiError;
 import com.google.gson.Gson;
 import java.io.IOException;
 import net.iharder.Base64;
+import java.util.*;
 
 public abstract class ExceptionFactory {
   private static final Gson GSON = GsonFactory.createGson();
@@ -17,7 +18,15 @@ public abstract class ExceptionFactory {
   public static <T> FiskalyHttpException buildHttpException(final JsonRpcResponse<T> response)
       throws IOException {
     final ErrorData errorData = GSON.fromJson(GSON.toJson(response.error.data), ErrorData.class);
-    final String requestId = (String) errorData.response.headers.get("x-request-id").get(0);
+    String requestId = null;
+    //request id is in x-request-id header in v1, request-id in v2.
+    List<?> requestIds = errorData.response.headers.get("x-request-id");
+    if (requestIds == null) {
+    	requestIds = errorData.response.headers.get("request-id");
+    }
+    if (requestIds != null) {
+    	requestId = (String)requestIds.get(0);
+    }
     final String decodedBody = new String(Base64.decode(errorData.response.body), "UTF-8");
     final FiskalyApiError errorBody = GSON.fromJson(decodedBody, FiskalyApiError.class);
 

@@ -6,6 +6,7 @@ public class ParamCreateContext {
   public final String apiKey;
   public final String apiSecret;
   public final URI baseUrl;
+  public final URI miceUrl;
   public final String email;
   public final String password;
   public final String organizationId;
@@ -18,7 +19,8 @@ public class ParamCreateContext {
       final String email,
       final String password,
       final String organizationId,
-      final String environment) {
+      final String environment,
+      final URI miceUrl) {
     if (email == null || email.isEmpty()) {
       if (apiKey == null || apiKey.isEmpty()) {
         throw new IllegalArgumentException("Missing or empty \"apiKey\" parameter");
@@ -41,6 +43,7 @@ public class ParamCreateContext {
       throw new IllegalArgumentException("Missing or empty \"baseUrl\" parameter");
     }
     this.baseUrl = baseUrl;
+    this.miceUrl = miceUrl;
 
     this.email = email == null ? "" : email;
     this.password = password == null ? "" : password;
@@ -71,6 +74,9 @@ public class ParamCreateContext {
         + '\''
         + ", baseUrl="
         + baseUrl
+        + '\''
+        + ", miceUrl="
+        + miceUrl
         + '}';
   }
 }

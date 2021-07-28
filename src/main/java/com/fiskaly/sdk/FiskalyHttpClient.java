@@ -25,12 +25,13 @@ public class FiskalyHttpClient {
       final String email,
       final String password,
       final String organizationId,
-      final String environment)
+      final String environment,
+      final URI miceUrl)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
     final ParamCreateContext params =
         new ParamCreateContext(
-            apiKey, apiSecret, baseUrl, email, password, organizationId, environment);
+            apiKey, apiSecret, baseUrl, email, password, organizationId, environment,miceUrl);
     final JsonRpcRequest request = new JsonRpcRequest("create-context", params);
     final JsonRpcResponse<ResultCreateContext> response =
         doInvoke(request, ResultCreateContext.class);
@@ -45,19 +46,31 @@ public class FiskalyHttpClient {
       final String password)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
-    this(apiKey, apiSecret, baseUrl, email, password, "", "");
+    this(apiKey, apiSecret, baseUrl, email, password, "", "", null);
   }
 
   public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
-    this(apiKey, apiSecret, baseUrl, "", "", "", "");
+    this(apiKey, apiSecret, baseUrl, "", "", "", "", null);
+  }
+  
+    public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl, final URI miceUrl)
+      throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
+          FiskalyHttpException {
+    this(apiKey, apiSecret, baseUrl, "", "", "", "",miceUrl);
   }
 
   public FiskalyHttpClient(final String apiKey, final String apiSecret, final String baseUrl)
       throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     this(apiKey, apiSecret, new URI(baseUrl));
+  }
+  
+    public FiskalyHttpClient(final String apiKey, final String apiSecret, final String baseUrl, final String miceUrl)
+      throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
+          FiskalyHttpTimeoutException {
+    this(apiKey, apiSecret, new URI(baseUrl), new URI(miceUrl));
   }
 
   public ResultVersion version()
