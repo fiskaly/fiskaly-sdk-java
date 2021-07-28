@@ -31,7 +31,7 @@ public class FiskalyHttpClient {
           FiskalyHttpException {
     final ParamCreateContext params =
         new ParamCreateContext(
-            apiKey, apiSecret, baseUrl, email, password, organizationId, environment,miceUrl);
+            apiKey, apiSecret, baseUrl, email, password, organizationId, environment, miceUrl);
     final JsonRpcRequest request = new JsonRpcRequest("create-context", params);
     final JsonRpcResponse<ResultCreateContext> response =
         doInvoke(request, ResultCreateContext.class);
@@ -54,11 +54,12 @@ public class FiskalyHttpClient {
           FiskalyHttpException {
     this(apiKey, apiSecret, baseUrl, "", "", "", "", null);
   }
-  
-    public FiskalyHttpClient(final String apiKey, final String apiSecret, final URI baseUrl, final URI miceUrl)
+
+  public FiskalyHttpClient(
+      final String apiKey, final String apiSecret, final URI baseUrl, final URI miceUrl)
       throws IOException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
-    this(apiKey, apiSecret, baseUrl, "", "", "", "",miceUrl);
+    this(apiKey, apiSecret, baseUrl, "", "", "", "", miceUrl);
   }
 
   public FiskalyHttpClient(final String apiKey, final String apiSecret, final String baseUrl)
@@ -66,8 +67,9 @@ public class FiskalyHttpClient {
           FiskalyHttpTimeoutException {
     this(apiKey, apiSecret, new URI(baseUrl));
   }
-  
-    public FiskalyHttpClient(final String apiKey, final String apiSecret, final String baseUrl, final String miceUrl)
+
+  public FiskalyHttpClient(
+      final String apiKey, final String apiSecret, final String baseUrl, final String miceUrl)
       throws IOException, URISyntaxException, FiskalyHttpException, FiskalyClientException,
           FiskalyHttpTimeoutException {
     this(apiKey, apiSecret, new URI(baseUrl), new URI(miceUrl));
