@@ -12,7 +12,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-jre'
+    //implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-jre'
+    implementation files('../../build/libs/fiskaly-sdk-1.2.200.jar')
+    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "net.iharder:base64:2.3.9"
+    implementation "net.java.dev.jna:jna:5.5.0"
 }
 
 application {
