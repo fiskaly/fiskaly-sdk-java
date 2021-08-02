@@ -1,6 +1,8 @@
 package com.fiskaly.sdk.demo.jre;
 
 import com.fiskaly.sdk.*;
+
+import java.util.Collections;
 import java.util.UUID;
 
 import com.fiskaly.sdk.factories.GsonFactory;
@@ -9,8 +11,12 @@ import net.iharder.Base64;
 
 public class Main {
   static String tssUUID = "";
+  static String clientUUID = "";
   static String adminPuk = "";
   static FiskalyHttpClient client = null;
+  static String adminPIN = "0123456789";
+  static String transactionUUID = "";
+  static int transactionRevision = 0;
   private static final Gson GSON = GsonFactory.createGson();
 
   public static void main(String[] args) throws Exception {
@@ -23,6 +29,15 @@ public class Main {
     System.out.println(response);
     createTSS();
     personalizeTSS();
+    changeAdminPIN();
+    authenticateAdmin();
+    initializeTSS();
+    createClient();
+    updateClient();
+    createTransaction();
+    updateTransaction();
+    finishTransaction();
+    disableTSS();
   }
 
   public static void createTSS() throws Exception {
@@ -49,6 +64,134 @@ public class Main {
   public static void personalizeTSS() throws Exception {
       setTSSState("UNINITIALIZED");
   }
+
+  public static void changeAdminPIN() throws Exception {
+    final String body = "{ \"admin_puk\" : \""+adminPuk+"\", \"new_admin_pin\" : \""+adminPIN+"\" }";
+    System.out.println("Setting admin PIN to "+adminPIN);
+    System.out.println(body);
+    final FiskalyHttpResponse response = client.request("PATCH", "/tss/" + tssUUID + "/admin", body.getBytes());
+    System.out.println("Set admin PIN response:");
+    System.out.println(response);
+  }
+
+  public static void authenticateAdmin() throws Exception {
+    final String body = "{ \"admin_pin\" : \""+adminPIN+"\" }";
+    System.out.println("Authenticating admin");
+    System.out.println(body);
+    final FiskalyHttpResponse response = client.request("POST", "/tss/" + tssUUID + "/admin/auth", body.getBytes());
+    System.out.println("Authenticate admin response:");
+    System.out.println(response);
+  }
+
+  public static void initializeTSS() throws Exception {
+    setTSSState("INITIALIZED");
+  }
+
+  public static void createClient() throws Exception {
+    UUID uuid = UUID.randomUUID();
+    clientUUID = uuid.toString();
+    final String body = "{ \"serial_number\": \"JRE Test Client Serial\"}";
+    System.out.println("Creating client");
+    System.out.println(body);
+    final FiskalyHttpResponse response = client.request("PUT", "/tss/" + tssUUID + "/client/" + clientUUID, body.getBytes());
+    System.out.println("Create Client response:");
+    System.out.println(response);
+  }
+
+  public static void updateClient() throws Exception {
+    final String body = "{ \"state\": \"REGISTERED\", \"metadata\": {\"custom_field\": \"custom_value\"}}";
+    System.out.println("Updating client");
+    System.out.println(body);
+    final FiskalyHttpResponse response = client.request("PATCH", "/tss/" + tssUUID + "/client/" + clientUUID, body.getBytes());
+    System.out.println("Update Client response:");
+    System.out.println(response);
+  }
+
+  public static FiskalyHttpResponse transactionRequest(String body) throws Exception {
+    transactionRevision++; //transaction revision number starts at 1
+    return client.request("PUT", "/tss/" + tssUUID + "/tx/" + transactionUUID, body.getBytes(), Collections.singletonMap("tx_revision", transactionRevision));
+  }
+
+  public static void createTransaction() throws Exception {
+    UUID uuid = UUID.randomUUID();
+    transactionUUID = uuid.toString();
+    final String body = "{\"state\": \"ACTIVE\",\n" +
+            "            \"client_id\": \" + clientUUID\"\n" +
+            "        }";
+    System.out.println("Creating transaction");
+    System.out.println(body);
+    transactionRevision = 0;
+    final FiskalyHttpResponse response = transactionRequest(body);
+    System.out.println("Create Transaction response:");
+    System.out.println(response);
+  }
+
+  public static void updateTransaction() throws Exception {
+    final String body = "{\n" +
+            "            \"schema\": {\n" +
+            "                \"standard_v1\": {\n" +
+            "                    \"receipt\": {\n" +
+            "                        \"receipt_type\": \"RECEIPT\",\n" +
+            "                        \"amounts_per_vat_rate\": {\n" +
+            "                            {\n" +
+            "                                \"vat_rate\": \"NORMAL\",\n" +
+            "                                \"amount\": \"21.42\"\n" +
+            "                            }\n" +
+            "                        },\n" +
+            "                        \"amounts_per_payment_type\": {\n" +
+            "                            {\n" +
+            "                                \"payment_type\": \"NON_CASH\",\n" +
+            "                                \"amount\": \"21.42\"\n" +
+            "                            }\n" +
+            "                        }\n" +
+            "                    }\n" +
+            "                }\n" +
+            "            },\n" +
+            "            \"state\": \"ACTIVE\",\n" +
+            "            \"client_id\": clientUUID\n" +
+            "        }";
+    System.out.println("Updating transaction");
+    System.out.println(body);
+    final FiskalyHttpResponse response = transactionRequest(body);
+    System.out.println("Update Transaction response:");
+    System.out.println(response);
+  }
+
+  public static void finishTransaction() throws Exception {
+    final String body = "{\n" +
+            "            \"schema\": {\n" +
+            "                \"standard_v1\": {\n" +
+            "                    \"receipt\": {\n" +
+            "                        \"receipt_type\": \"RECEIPT\",\n" +
+            "                        \"amounts_per_vat_rate\": {\n" +
+            "                            {\n" +
+            "                                \"vat_rate\": \"NORMAL\",\n" +
+            "                                \"amount\": \"21.42\"\n" +
+            "                            }\n" +
+            "                        },\n" +
+            "                        \"amounts_per_payment_type\": {\n" +
+            "                            {\n" +
+            "                                \"payment_type\": \"NON_CASH\",\n" +
+            "                                \"amount\": \"21.42\"\n" +
+            "                            }\n" +
+            "                        }\n" +
+            "                    }\n" +
+            "                }\n" +
+            "            },\n" +
+            "            \"state\": \"FINISHED\",\n" +
+            "            \"client_id\": clientUUID\n" +
+            "        }";
+    System.out.println("Finishing transaction");
+    System.out.println(body);
+    final FiskalyHttpResponse response = transactionRequest(body);
+    System.out.println("Finish Transaction response:");
+    System.out.println(response);
+  }
+
+  public static void disableTSS() throws Exception {
+    setTSSState("DISABLED");
+  }
+
 }
 
 class CreateTSSResponse {
