@@ -33,12 +33,26 @@ public class Main {
       //now do something similar on v2
     final String apiKeyv2 = System.getenv("FISKALY_API_KEY_V2");
     final String apiSecretv2 = System.getenv("FISKALY_API_SECRET_V2");
+    //set these to use an existing TSS instead of creating a new one
+    final String existingTSS = System.getenv("FISKALY_TSS_UUID_V2");
+    //set either a PIN (if the TSS already has one set) or a PUK (if the TSS doesn't have a PIN set)
+    final String existingTSSAdminPIN = System.getenv("FISKALY_TSS_ADMIN_PIN");
+    final String existingTSSPUK = System.getenv("FISKALY_TSS_PUK");
     client =
         new FiskalyHttpClient(apiKeyv2, apiSecretv2, "https://kassensichv.fiskaly.dev/api/v2", "https://kassensichv-middleware.fiskaly.dev");
     listTSS();
-    createTSS();
-    personalizeTSS();
-    changeAdminPIN();
+    if (existingTSS == null) {
+      createTSS();
+    } else {
+      tssUUID = existingTSS;
+      adminPUK = existingTSSPUK;
+    }
+    if (existingTSSAdminPIN == null) {
+      personalizeTSS();
+      changeAdminPIN();
+    } else {
+      adminPIN = existingTSSAdminPIN;
+    }
     authenticateAdmin();
     initializeTSS();
     createClient();
@@ -46,7 +60,10 @@ public class Main {
     createTransaction();
     updateTransaction();
     finishTransaction();
-    disableTSS();
+    //don't disable a TSS we didn't create
+    if (existingTSS == null) {
+      disableTSS();
+    }
   }
 
   private static void listTSS() throws IOException, FiskalyHttpException, FiskalyClientException, FiskalyHttpTimeoutException {
