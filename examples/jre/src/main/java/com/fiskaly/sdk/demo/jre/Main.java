@@ -148,7 +148,7 @@ public class Main {
     UUID uuid = UUID.randomUUID();
     transactionUUID = uuid.toString();
     final String body = "{\"state\": \"ACTIVE\",\n" +
-            "            \"client_id\": \" + clientUUID\"\n" +
+            "            \"client_id\": \"" + clientUUID + "\"\n" +
             "        }";
     System.out.println("Creating transaction");
     System.out.println(body);
@@ -180,7 +180,7 @@ public class Main {
             "                }\n" +
             "            },\n" +
             "            \"state\": \"ACTIVE\",\n" +
-            "            \"client_id\": clientUUID\n" +
+            "            \"client_id\": \"" + clientUUID + "\"\n" +
             "        }";
     System.out.println("Updating transaction");
     System.out.println(body);
@@ -211,7 +211,7 @@ public class Main {
             "                }\n" +
             "            },\n" +
             "            \"state\": \"FINISHED\",\n" +
-            "            \"client_id\": clientUUID\n" +
+            "            \"client_id\": \"" + clientUUID+ "\"\n" +
             "        }";
     System.out.println("Finishing transaction");
     System.out.println(body);
@@ -255,7 +255,7 @@ public class Main {
   public static void finishTransactionV1() throws Exception {
     final String body = "{\n" +
             "            \"state\": \"FINISHED\",\n" +
-            "            \"client_id\": \""+clientUUID+"\",\n" +
+            "            \"client_id\": \"" + clientUUID + "\",\n" +
             "            \"schema\": {\n" +
             "                \"standard_v1\": {\n" +
             "                    \"receipt\": {\n" +
