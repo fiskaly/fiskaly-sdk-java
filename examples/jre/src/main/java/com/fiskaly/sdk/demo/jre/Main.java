@@ -164,18 +164,18 @@ public class Main {
             "                \"standard_v1\": {\n" +
             "                    \"receipt\": {\n" +
             "                        \"receipt_type\": \"RECEIPT\",\n" +
-            "                        \"amounts_per_vat_rate\": {\n" +
-            "                            [\n" +
+            "                        \"amounts_per_vat_rate\": [\n" +
+            "                            {\n" +
             "                                \"vat_rate\": \"NORMAL\",\n" +
             "                                \"amount\": \"21.42\"\n" +
-            "                            ]\n" +
-            "                        },\n" +
-            "                        \"amounts_per_payment_type\": {\n" +
-            "                            [\n" +
+            "                            }\n" +
+            "                        ],\n" +
+            "                        \"amounts_per_payment_type\": [\n" +
+            "                            {\n" +
             "                                \"payment_type\": \"NON_CASH\",\n" +
             "                                \"amount\": \"21.42\"\n" +
-            "                            ]\n" +
-            "                        }\n" +
+            "                            }\n" +
+            "                        ]\n" +
             "                    }\n" +
             "                }\n" +
             "            },\n" +
@@ -195,18 +195,18 @@ public class Main {
             "                \"standard_v1\": {\n" +
             "                    \"receipt\": {\n" +
             "                        \"receipt_type\": \"RECEIPT\",\n" +
-            "                        \"amounts_per_vat_rate\": {\n" +
-            "                            [\n" +
+            "                        \"amounts_per_vat_rate\": [\n" +
+            "                            {\n" +
             "                                \"vat_rate\": \"NORMAL\",\n" +
             "                                \"amount\": \"21.42\"\n" +
-            "                            ]\n" +
-            "                        },\n" +
-            "                        \"amounts_per_payment_type\": {\n" +
-            "                            [\n" +
+            "                            }\n" +
+            "                        ],\n" +
+            "                        \"amounts_per_payment_type\": [\n" +
+            "                            {\n" +
             "                                \"payment_type\": \"NON_CASH\",\n" +
             "                                \"amount\": \"21.42\"\n" +
-            "                            ]\n" +
-            "                        }\n" +
+            "                            }\n" +
+            "                        ]\n" +
             "                    }\n" +
             "                }\n" +
             "            },\n" +
