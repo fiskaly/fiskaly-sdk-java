@@ -39,18 +39,20 @@ public class Main {
     final String existingTSSAdminPIN = System.getenv("FISKALY_TSS_ADMIN_PIN");
     final String existingTSSPUK = System.getenv("FISKALY_TSS_PUK");
     client =
-        new FiskalyHttpClient(apiKeyv2, apiSecretv2, "https://kassensichv.fiskaly.dev/api/v2", "https://kassensichv-middleware.fiskaly.dev");
+        new FiskalyHttpClient(apiKeyv2, apiSecretv2, "https://kassensichv.fiskaly.com/api/v2", "https://kassensichv-middleware.fiskaly.com");
     listTSS();
-    if (existingTSS == null) {
+    final Boolean useExistingTSS = existingTSS != null && !existingTSS.isEmpty();
+    if (!useExistingTSS) {
       createTSS();
     } else {
       tssUUID = existingTSS;
       adminPUK = existingTSSPUK;
+      System.out.println("Using existing TSS '"+existingTSS+"' with PIN '"+existingTSSAdminPIN+"' and PUK '"+existingTSSPUK+"'");
     }
-    if (existingTSSAdminPIN == null) {
+    if (!useExistingTSS || existingTSSAdminPIN == null || existingTSSAdminPIN.isEmpty()) {
       personalizeTSS();
       changeAdminPIN();
-    } else {
+    } else if (useExistingTSS) {
       adminPIN = existingTSSAdminPIN;
     }
     authenticateAdmin();
