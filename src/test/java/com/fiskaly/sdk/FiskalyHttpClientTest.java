@@ -19,7 +19,11 @@ public class FiskalyHttpClientTest {
   public FiskalyHttpClient createClient()
       throws IOException, URISyntaxException, FiskalyHttpTimeoutException, FiskalyClientException,
           FiskalyHttpException {
-    return new FiskalyHttpClient(API_KEY, API_SECRET, "https://kassensichv.io/api/v1");
+    return new FiskalyHttpClient(
+        API_KEY,
+        API_SECRET,
+        "https://kassensichv.fiskaly.com/api/v2",
+        "https://kassensichv-middleware.fiskaly.com");
   }
 
   @Test
