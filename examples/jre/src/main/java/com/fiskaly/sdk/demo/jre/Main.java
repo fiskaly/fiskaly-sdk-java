@@ -10,8 +10,8 @@ import com.fiskaly.sdk.factories.GsonFactory;
 import com.google.gson.Gson;
 
 public class Main {
-  static String tssUUID = "";
-  static String clientUUID = "";
+  static UUID tssUUID = null;
+  static UUID clientUUID = null;
   static String adminPUK = "";
   static FiskalyHttpClient client = null;
   static String adminPIN = "0123456789";
@@ -45,7 +45,7 @@ public class Main {
     if (!useExistingTSS) {
       createTSS();
     } else {
-      tssUUID = existingTSS;
+      tssUUID = UUID.fromString(existingTSS);
       adminPUK = existingTSSPUK;
       System.out.println("Using existing TSS '"+existingTSS+"' with PIN '"+existingTSSAdminPIN+"' and PUK '"+existingTSSPUK+"'");
     }
@@ -75,8 +75,7 @@ public class Main {
   }
 
   public static void createTSS() throws Exception {
-    UUID uuid = UUID.randomUUID();
-    tssUUID = uuid.toString();
+    tssUUID = UUID.randomUUID();
     final FiskalyHttpResponse response = client.request("PUT", "/tss/" + tssUUID, "{}".getBytes());
     System.out.println("Create TSS response:");
     System.out.println(response);
@@ -122,8 +121,7 @@ public class Main {
   }
 
   public static void createClient() throws Exception {
-    UUID uuid = UUID.randomUUID();
-    clientUUID = uuid.toString();
+    clientUUID = UUID.randomUUID();
     final String body = "{ \"serial_number\": \"JRE Test Client Serial\"}";
     System.out.println("Creating client");
     System.out.println(body);
@@ -228,8 +226,7 @@ public class Main {
 
   ///V1 versions
   public static void createTSSV1() throws Exception {
-    UUID uuid = UUID.randomUUID();
-    tssUUID = uuid.toString();
+    tssUUID = UUID.randomUUID();
     final String body = "{\n" +
             "            \"description\": \"JRE Test TSS\",\n" +
             "            \"state\": \"INITIALIZED\"\n" +
