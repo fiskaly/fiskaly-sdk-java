@@ -22,8 +22,8 @@ public class FiskalyHttpClientTest {
     return new FiskalyHttpClient(
         API_KEY,
         API_SECRET,
-        "https://kassensichv.fiskaly.dev/api/v2",
-        "https://kassensichv-middleware.fiskaly.dev");
+        "https://kassensichv.fiskaly.com/api/v2",
+        "https://kassensichv-middleware.fiskaly.com");
   }
 
   @Test

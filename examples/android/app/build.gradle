@@ -19,5 +19,5 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     implementation 'com.fiskaly.sdk:fiskaly-sdk:1.2.200-android'
-    implementation files('libs/com.fiskaly.client-android-all-v1.2.400.aar')
+    implementation files('libs/com.fiskaly.client-android-all-v1.2.200.aar')
 }
